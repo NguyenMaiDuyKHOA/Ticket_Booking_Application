@@ -1,0 +1,382 @@
+{
+  "Metadata": {
+    "title": "CineBook | Đặt vé xem phim",
+    "description": "Đặt vé xem phim với lịch chiếu đa ngôn ngữ, chọn ghế và tổng thanh toán rõ ràng."
+  },
+  "LocaleSwitcher": {
+    "label": "Đổi ngôn ngữ",
+    "vi": "VI",
+    "en": "EN"
+  },
+  "Home": {
+    "brand": "TicketPro",
+    "nav": {
+      "ticketTypes": "Loại vé",
+      "search": "Tìm kiếm",
+      "featured": "Nổi bật",
+      "support": "Hỗ trợ",
+      "notifications": "Thông báo",
+      "account": "Tài khoản"
+    },
+    "hero": {
+      "eyebrow": "Vé xem phim và trải nghiệm giải trí",
+      "title": "Tìm đúng loại vé cho mọi kế hoạch",
+      "subtitle": "Tìm phim, sự kiện, concert và tour từ một trang home với luồng đặt vé đa ngôn ngữ.",
+      "cardLabel": "Thanh toán tập trung",
+      "cardTitle": "Có vé chỉ trong vài phút"
+    },
+    "stats": {
+      "categories": "Loại vé",
+      "partners": "Đối tác",
+      "support": "Hỗ trợ"
+    },
+    "search": {
+      "keyword": "Tìm kiếm",
+      "keywordPlaceholder": "Phim, nghệ sĩ, sự kiện hoặc điểm đến",
+      "category": "Danh mục",
+      "allCategories": "Tất cả vé",
+      "location": "Địa điểm",
+      "locationValue": "Việt Nam",
+      "button": "Tìm vé"
+    },
+    "categories": {
+      "title": "Các loại vé",
+      "subtitle": "Chọn luồng đặt vé theo từng loại dịch vụ.",
+      "cgv": {
+        "title": "CGV",
+        "description": "Đặt ghế xem phim, chọn suất chiếu và combo rạp.",
+        "cta": "Đặt vé CGV"
+      },
+      "event": {
+        "title": "Event",
+        "description": "Khám phá hội nghị, triển lãm và sự kiện cộng đồng.",
+        "cta": "Xem event"
+      },
+      "concert": {
+        "title": "Concert",
+        "description": "Tìm show âm nhạc, sân khấu live và tour nghệ sĩ.",
+        "cta": "Xem concert"
+      },
+      "tour": {
+        "title": "Tour",
+        "description": "Xem chuyến đi, trải nghiệm thành phố và tour hướng dẫn.",
+        "cta": "Xem tour"
+      }
+    },
+    "featured": {
+      "today": {
+        "title": "Hôm nay",
+        "description": "Truy cập nhanh các vé còn lịch cho kế hoạch trong ngày."
+      },
+      "weekend": {
+        "title": "Cuối tuần",
+        "description": "Các vé phổ biến cho phim, show và hoạt động cuối tuần."
+      },
+      "family": {
+        "title": "Gia đình",
+        "description": "Lựa chọn phù hợp cho nhóm, gia đình và kế hoạch chung."
+      }
+    },
+    "slider": {
+      "badge": "Loại vé nổi bật",
+      "previous": "Slide trước",
+      "next": "Slide tiếp theo",
+      "goToSlide": "Chuyển đến slide {index}"
+    }
+  },
+  "Booking": {
+    "brand": "TicketPro",
+    "nav": {
+      "movies": "Phim",
+      "schedule": "Lịch chiếu",
+      "food": "Combo",
+      "support": "Hỗ trợ",
+      "notifications": "Thông báo",
+      "account": "Tài khoản"
+    },
+    "hero": {
+      "eyebrow": "Đang chiếu tại Việt Nam",
+      "title": "Đặt vé xem phim",
+      "subtitle": "Xem lịch chiếu, giữ ghế, thêm combo và kiểm tra tổng thanh toán trong một luồng đặt vé đa ngôn ngữ."
+    },
+    "stats": {
+      "cinemas": "Rạp",
+      "cities": "Thành phố",
+      "formats": "Định dạng"
+    },
+    "search": {
+      "city": "Thành phố",
+      "cinema": "Rạp",
+      "date": "Ngày",
+      "movieType": "Loại phim",
+      "button": "Tìm suất",
+      "cityValue": "TP. Hồ Chí Minh",
+      "cinemaValue": "Galaxy Nguyễn Du",
+      "dateValue": "Hôm nay",
+      "movieTypes": {
+        "all": "Tất cả phim",
+        "action": "Hành động",
+        "drama": "Tâm lý",
+        "family": "Gia đình"
+      }
+    },
+    "movies": {
+      "title": "Phim đang chiếu",
+      "subtitle": "Chọn phim để cập nhật giá vé và thông tin thanh toán.",
+      "orbit": {
+        "title": "Perfume - The Story of a Murderer",
+        "genre": "Phiêu lưu viễn tưởng",
+        "duration": "126 phút",
+        "age": "T13",
+        "format": "IMAX 2D"
+      },
+      "saigon": {
+        "title": "Premonicao 5",
+        "genre": "Tình cảm chính kịch",
+        "duration": "108 phút",
+        "age": "T16",
+        "format": "2D"
+      },
+      "midnight": {
+        "title": "Thor - The Dark World",
+        "genre": "Hành động giật gân",
+        "duration": "117 phút",
+        "age": "T18",
+        "format": "Dolby Atmos"
+      },
+      "thewind": {
+        "title": "Zoologico",
+        "genre": "Hành động giật gân",
+        "duration": "117 phút",
+        "age": "T18",
+        "format": "Dolby Atmos"
+      }
+    },
+    "dates": {
+      "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
+      "weekend": "Cuối tuần"
+    },
+    "bookingPanel": {
+      "title": "Thông tin đặt vé",
+      "subtitle": "Galaxy Nguyễn Du, Phòng 5",
+      "date": "Ngày",
+      "time": "Suất",
+      "seatMap": "Sơ đồ ghế",
+      "screen": "Màn hình",
+      "available": "Trống",
+      "selected": "Đang chọn",
+      "taken": "Đã đặt"
+    },
+    "combos": {
+      "title": "Combo",
+      "popcorn": {
+        "title": "Bắp caramel",
+        "description": "Size lớn"
+      },
+      "soda": {
+        "title": "Nước ngọt",
+        "description": "2 ly vừa"
+      }
+    },
+    "checkout": {
+      "title": "Thanh toán",
+      "tickets": "Vé",
+      "seatCount": "{count, plural, =0 {Chưa chọn ghế} other {# ghế}}",
+      "combo": "Combo",
+      "serviceFee": "Phí dịch vụ",
+      "total": "Tổng cộng",
+      "continue": "Tiếp tục"
+    },
+    "footer": {
+      "description": "CineBook giúp khán giả tìm suất chiếu, giữ ghế và hoàn tất thanh toán nhanh tại các cụm rạp được hỗ trợ.",
+      "quickLinks": "Liên kết nhanh",
+      "contact": "Liên hệ",
+      "address": "Quận 1, TP. Hồ Chí Minh",
+      "hotline": "1900 888 999",
+      "email": "support@cinebook.vn",
+      "hours": "08:00 - 23:00 hằng ngày",
+      "payment": "Hỗ trợ thẻ, ví điện tử và chuyển khoản",
+      "copyright": "Bản quyền {year} CineBook. Đã đăng ký mọi quyền."
+    },
+    "aria": {
+      "selectMovie": "Chọn phim {movie}",
+      "selectDate": "Chọn ngày {date}",
+      "selectTime": "Chọn suất {time}",
+      "selectSeat": "Chọn ghế {seat}",
+      "increaseCombo": "Tăng {combo}",
+      "decreaseCombo": "Giảm {combo}"
+    }
+  },
+  "Auth": {
+    "brand": "Tài khoản TicketPro",
+    "hero": {
+      "eyebrow": "Tài khoản đặt vé an toàn",
+      "cardLabel": "Quyền lợi thành viên",
+      "cardTitle": "Lưu mọi vé trong một tài khoản"
+    },
+    "tabs": {
+      "login": "Đăng nhập",
+      "register": "Đăng ký"
+    },
+    "login": {
+      "metadataTitle": "Đăng nhập | TicketPro",
+      "metadataDescription": "Đăng nhập để quản lý vé và thông tin thanh toán.",
+      "title": "Trở lại với kế hoạch xem phim của bạn",
+      "subtitle": "Truy cập vé đã lưu, tiếp tục thanh toán và giữ lịch sử đặt vé sẵn sàng cho mỗi lần đến rạp.",
+      "heading": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "submit": "Đăng nhập",
+      "switchPrompt": "Chưa có tài khoản?",
+      "switchAction": "Tạo tài khoản"
+    },
+    "register": {
+      "metadataTitle": "Đăng ký | TicketPro",
+      "metadataDescription": "Tạo tài khoản TicketPro để đặt vé xem phim nhanh hơn.",
+      "title": "Tạo tài khoản để thanh toán nhanh hơn",
+      "subtitle": "Lưu thông tin liên hệ, xem lại lịch sử đặt vé và chọn ghế với luồng đặt vé mượt hơn.",
+      "heading": "Tạo tài khoản",
+      "submit": "Tạo tài khoản",
+      "terms": "Tôi đồng ý nhận cập nhật đặt vé và chấp nhận điều khoản tài khoản.",
+      "switchPrompt": "Đã có tài khoản?",
+      "switchAction": "Đăng nhập",
+      "alertAceptedTerms": "Bạn phải đồng ý điều khoản"
+    },
+    "fields": {
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "password": "Mật khẩu",
+      "confirmPassword": "Nhập lại mật khẩu"
+    },
+    "placeholders": {
+      "fullName": "Nguyen Van A",
+      "email": "ban@example.com",
+      "phone": "0900 000 000",
+      "password": "Tối thiểu 8 ký tự",
+      "confirmPassword": "Nhập lại mật khẩu"
+    },
+    "errors": {
+      "passwordMismatch": "Mật khẩu xác nhận không khớp."
+    },
+    "benefits": {
+      "seatHold": "Giữ ghế đã chọn cho đến khi thanh toán hoàn tất",
+      "fastCheckout": "Tái sử dụng thông tin thanh toán đã lưu để đặt vé nhanh hơn",
+      "ticketHistory": "Xem lại vé và lịch sử đặt vé"
+    },
+    "aria": {
+      "showPassword": "Hiện Mật khẩu",
+      "hidePassword": "Ẩn mật khẩu"
+    }
+  },
+  "ItemDetail": {
+    "back": "Quay lai",
+    "details": "Thông tin",
+    "overview": "Tổng quan",
+    "primaryCta": "Tiếp tục đặt vé",
+    "types": {
+      "cgv": "Phim",
+      "event": "Sự kiện",
+      "concert": "Concert",
+      "tour": "Tour"
+    }
+  },
+  "Rank": {
+    "eyebrow": "Bảng xếp hạng",
+    "home": {
+      "title": "Vé đang thịnh hành",
+      "subtitle": "Các loại vé được tìm kiếm nhiều nhất hiện tại.",
+      "cta": "Xem tất cả bảng xếp hạng",
+      "items": {
+        "cgv": {
+          "title": "Vé xem phim CGV",
+          "meta": "Phim và combo rạp"
+        },
+        "event": {
+          "title": "Sự kiện trực tiếp",
+          "meta": "Show và triễn lãm"
+        },
+        "tour": {
+          "title": "Tour Việt Nam",
+          "meta": "Chuyến đi và trải nghiệm địa phương"
+        }
+      }
+    },
+    "cgv": {
+      "title": "Phim CGV nổi bật",
+      "subtitle": "Các lựa chọn phim phổ biến cho luồng đặt vé rạp.",
+      "cta": "Đặt phim nổi bật",
+      "items": {
+        "thor": {
+          "title": "Đấu Trường Sấm Sét",
+          "meta": "Phiêu lưu hành động"
+        },
+        "perfume": {
+          "title": "Dấu Vết Hương Thơm",
+          "meta": "Chính kịch bí ẩn"
+        },
+        "zoo": {
+          "title": "Zoologico",
+          "meta": "Hoạt hình gia đình"
+        }
+      }
+    },
+    "event": {
+      "title": "Xếp hạng event",
+      "subtitle": "Các sự kiện có nhu cầu cao trong tuần này.",
+      "cta": "Xem event",
+      "items": {
+        "festival": {
+          "title": "Music Festival",
+          "meta": "Sân khấu ngoài trời"
+        },
+        "expo": {
+          "title": "Creator Expo",
+          "meta": "Triễn lãm kinh doanh"
+        },
+        "workshop": {
+          "title": "Design Workshop",
+          "meta": "Phát triển kĩ năng"
+        }
+      }
+    },
+    "concert": {
+      "title": "Xếp hạng concert",
+      "subtitle": "Các vé concert được người hâm mộ quan tâm.",
+      "cta": "Xem concert",
+      "items": {
+        "arena": {
+          "title": "Arena Night",
+          "meta": "Sân khấu chính"
+        },
+        "acoustic": {
+          "title": "Acoustic Session",
+          "meta": "Show thân mật"
+        },
+        "festival": {
+          "title": "Sound Festival",
+          "meta": "Nhiều nghệ sĩ"
+        }
+      }
+    },
+    "tour": {
+      "title": "Xếp hạng tour",
+      "subtitle": "Tour vé trãi nghiệm được đặt nhiều nhất.",
+      "cta": "Xem tour",
+      "items": {
+        "saigon": {
+          "title": "Saigon City Tour",
+          "meta": "Trãi nghiệm nữa ngày"
+        },
+        "heritage": {
+          "title": "Heritage Walk",
+          "meta": "Tuyến văn hóa"
+        },
+        "food": {
+          "title": "Street Food Tour",
+          "meta": "Ẩm thực buổi tối"
+        }
+      }
+    }
+  }
+}

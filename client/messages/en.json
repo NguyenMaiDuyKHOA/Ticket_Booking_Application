@@ -1,0 +1,382 @@
+{
+  "Metadata": {
+    "title": "CineBook | Movie ticket booking",
+    "description": "Book movie tickets with localized schedules, seat selection and checkout details."
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "vi": "VI",
+    "en": "EN"
+  },
+  "Home": {
+    "brand": "TicketPro",
+    "nav": {
+      "ticketTypes": "Tickets",
+      "search": "Search",
+      "featured": "Featured",
+      "support": "Support",
+      "notifications": "Notifications",
+      "account": "Account"
+    },
+    "hero": {
+      "eyebrow": "Tickets for cinema and live experiences",
+      "title": "Find the right ticket for every plan",
+      "subtitle": "Search movies, events, concerts and tours from one home page with localized booking flows.",
+      "cardLabel": "Unified checkout",
+      "cardTitle": "Tickets ready in minutes"
+    },
+    "stats": {
+      "categories": "Ticket types",
+      "partners": "Partners",
+      "support": "Support"
+    },
+    "search": {
+      "keyword": "Search",
+      "keywordPlaceholder": "Movie, artist, event or destination",
+      "category": "Category",
+      "allCategories": "All tickets",
+      "location": "Location",
+      "locationValue": "Vietnam",
+      "button": "Search tickets"
+    },
+    "categories": {
+      "title": "Ticket categories",
+      "subtitle": "Choose a booking flow by ticket type.",
+      "cgv": {
+        "title": "CGV",
+        "description": "Reserve movie seats, showtimes and cinema combos.",
+        "cta": "Book CGV"
+      },
+      "event": {
+        "title": "Event",
+        "description": "Discover conferences, exhibitions and community events.",
+        "cta": "View events"
+      },
+      "concert": {
+        "title": "Concert",
+        "description": "Find music shows, live stages and artist tours.",
+        "cta": "View concerts"
+      },
+      "tour": {
+        "title": "Tour",
+        "description": "Browse trips, city experiences and guided tours.",
+        "cta": "View tours"
+      }
+    },
+    "featured": {
+      "today": {
+        "title": "Today",
+        "description": "Fast access to tickets available for same-day plans."
+      },
+      "weekend": {
+        "title": "Weekend",
+        "description": "Popular tickets for weekend movies, shows and activities."
+      },
+      "family": {
+        "title": "Family",
+        "description": "Friendly options for groups, families and shared plans."
+      }
+    },
+    "slider": {
+      "badge": "Featured ticket type",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "goToSlide": "Go to slide {index}"
+    }
+  },
+  "Booking": {
+    "brand": "TicketPro",
+    "nav": {
+      "movies": "Movies",
+      "schedule": "Schedule",
+      "food": "Food",
+      "support": "Support",
+      "notifications": "Notifications",
+      "account": "Account"
+    },
+    "hero": {
+      "eyebrow": "Now showing across Vietnam",
+      "title": "Movie tickets",
+      "subtitle": "Browse current screenings, lock seats, add combos and review the checkout total in one localized booking flow."
+    },
+    "stats": {
+      "cinemas": "Cinemas",
+      "cities": "Cities",
+      "formats": "Formats"
+    },
+    "search": {
+      "city": "City",
+      "cinema": "Cinema",
+      "date": "Date",
+      "movieType": "Movie type",
+      "button": "Find shows",
+      "cityValue": "Ho Chi Minh City",
+      "cinemaValue": "Galaxy Nguyen Du",
+      "dateValue": "Today",
+      "movieTypes": {
+        "all": "All movies",
+        "action": "Action",
+        "drama": "Drama",
+        "family": "Family"
+      }
+    },
+    "movies": {
+      "title": "Now showing",
+      "subtitle": "Pick a movie to update ticket prices and checkout details.",
+      "orbit": {
+        "title": "Perfume - The Story of a Murderer",
+        "genre": "Sci-fi adventure",
+        "duration": "126 min",
+        "age": "T13",
+        "format": "IMAX 2D"
+      },
+      "saigon": {
+        "title": "Premonicao 5",
+        "genre": "Drama romance",
+        "duration": "108 min",
+        "age": "T16",
+        "format": "2D"
+      },
+      "midnight": {
+        "title": "Thor - The Dark World",
+        "genre": "Action thriller",
+        "duration": "117 min",
+        "age": "T18",
+        "format": "Dolby Atmos"
+      },
+      "thewind": {
+        "title": "Zoologico",
+        "genre": "Action thriller",
+        "duration": "117 min",
+        "age": "T18",
+        "format": "Dolby Atmos"
+      }
+    },
+    "dates": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "weekend": "Weekend"
+    },
+    "bookingPanel": {
+      "title": "Booking details",
+      "subtitle": "Galaxy Nguyen Du, Hall 5",
+      "date": "Date",
+      "time": "Time",
+      "seatMap": "Seat map",
+      "screen": "Screen",
+      "available": "Available",
+      "selected": "Selected",
+      "taken": "Taken"
+    },
+    "combos": {
+      "title": "Combos",
+      "popcorn": {
+        "title": "Caramel popcorn",
+        "description": "Large bucket"
+      },
+      "soda": {
+        "title": "Soda set",
+        "description": "2 medium drinks"
+      }
+    },
+    "checkout": {
+      "title": "Checkout",
+      "tickets": "Tickets",
+      "seatCount": "{count, plural, =0 {No seats} =1 {1 seat} other {# seats}}",
+      "combo": "Combos",
+      "serviceFee": "Service fee",
+      "total": "Total",
+      "continue": "Continue"
+    },
+    "footer": {
+      "description": "CineBook helps moviegoers find showtimes, reserve seats and complete checkout quickly across supported cinemas.",
+      "quickLinks": "Quick links",
+      "contact": "Contact",
+      "address": "District 1, Ho Chi Minh City",
+      "hotline": "1900 888 999",
+      "email": "support@cinebook.vn",
+      "hours": "08:00 - 23:00 daily",
+      "payment": "Cards, e-wallets and bank transfers accepted",
+      "copyright": "Copyright {year} CineBook. All rights reserved."
+    },
+    "aria": {
+      "selectMovie": "Select {movie}",
+      "selectDate": "Select {date}",
+      "selectTime": "Select {time}",
+      "selectSeat": "Select seat {seat}",
+      "increaseCombo": "Increase {combo}",
+      "decreaseCombo": "Decrease {combo}"
+    }
+  },
+  "Auth": {
+    "brand": "TicketPro Account",
+    "hero": {
+      "eyebrow": "Secure booking account",
+      "cardLabel": "Member access",
+      "cardTitle": "Keep every ticket in one place"
+    },
+    "tabs": {
+      "login": "Login",
+      "register": "Register"
+    },
+    "login": {
+      "metadataTitle": "Login | TicketPro",
+      "metadataDescription": "Login to manage movie tickets, saved seats and checkout details.",
+      "title": "Welcome back to your movie plans",
+      "subtitle": "Access saved tickets, continue checkout and keep your booking history ready for every cinema visit.",
+      "heading": "Login",
+      "forgotPassword": "Forgot password?",
+      "submit": "Login",
+      "switchPrompt": "Do not have an account?",
+      "switchAction": "Create one"
+    },
+    "register": {
+      "metadataTitle": "Register | TicketPro",
+      "metadataDescription": "Create a TicketPro account for faster movie ticket booking.",
+      "title": "Create an account for faster checkout",
+      "subtitle": "Save contact details, review previous bookings and reserve seats with a smoother ticket flow.",
+      "heading": "Create account",
+      "submit": "Create account",
+      "terms": "I agree to receive booking updates and accept the account terms.",
+      "switchPrompt": "Already have an account?",
+      "switchAction": "Login",
+      "alertAceptedTerms": "You must accept the terms"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "placeholders": {
+      "fullName": "Nguyen Van A",
+      "email": "you@example.com",
+      "phone": "0900 000 000",
+      "password": "At least 8 characters",
+      "confirmPassword": "Re-enter your password"
+    },
+    "errors": {
+      "passwordMismatch": "Passwords do not match."
+    },
+    "benefits": {
+      "seatHold": "Keep selected seats while checking out",
+      "fastCheckout": "Reuse contact details for faster payment",
+      "ticketHistory": "Review tickets and booking history"
+    },
+    "aria": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    }
+  },
+  "ItemDetail": {
+    "back": "Back",
+    "details": "Details",
+    "overview": "Overview",
+    "primaryCta": "Continue booking",
+    "types": {
+      "cgv": "Movie",
+      "event": "Event",
+      "concert": "Concert",
+      "tour": "Tour"
+    }
+  },
+  "Rank": {
+    "eyebrow": "Rank",
+    "home": {
+      "title": "Trending tickets",
+      "subtitle": "The most searched ticket categories right now.",
+      "cta": "View all rankings",
+      "items": {
+        "cgv": {
+          "title": "CGV movie tickets",
+          "meta": "Movies and combos"
+        },
+        "event": {
+          "title": "Live events",
+          "meta": "Shows and exhibitions"
+        },
+        "tour": {
+          "title": "Vietnam tours",
+          "meta": "Trips and local experiences"
+        }
+      }
+    },
+    "cgv": {
+      "title": "CGV top movies",
+      "subtitle": "Popular movie picks for this cinema booking flow.",
+      "cta": "Book top movies",
+      "items": {
+        "thor": {
+          "title": "Thunder Arena",
+          "meta": "Action adventure"
+        },
+        "perfume": {
+          "title": "Perfume Trace",
+          "meta": "Mystery drama"
+        },
+        "zoo": {
+          "title": "Zoologico",
+          "meta": "Family animation"
+        }
+      }
+    },
+    "event": {
+      "title": "Event ranking",
+      "subtitle": "Events with the strongest demand this week.",
+      "cta": "View events",
+      "items": {
+        "festival": {
+          "title": "Music Festival",
+          "meta": "Outdoor live stage"
+        },
+        "expo": {
+          "title": "Creator Expo",
+          "meta": "Business exhibition"
+        },
+        "workshop": {
+          "title": "Design Workshop",
+          "meta": "Skill building"
+        }
+      }
+    },
+    "concert": {
+      "title": "Concert ranking",
+      "subtitle": "Concert tickets fans are watching closely.",
+      "cta": "View concerts",
+      "items": {
+        "arena": {
+          "title": "Arena Night",
+          "meta": "Main stage"
+        },
+        "acoustic": {
+          "title": "Acoustic Session",
+          "meta": "Intimate show"
+        },
+        "festival": {
+          "title": "Sound Festival",
+          "meta": "Multi-artist lineup"
+        }
+      }
+    },
+    "tour": {
+      "title": "Tour ranking",
+      "subtitle": "Tours and experiences users are booking most.",
+      "cta": "View tours",
+      "items": {
+        "saigon": {
+          "title": "Saigon City Tour",
+          "meta": "Half-day experience"
+        },
+        "heritage": {
+          "title": "Heritage Walk",
+          "meta": "Culture route"
+        },
+        "food": {
+          "title": "Street Food Tour",
+          "meta": "Evening tasting"
+        }
+      }
+    }
+  }
+}
