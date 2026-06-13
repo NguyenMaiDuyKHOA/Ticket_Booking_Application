@@ -1,40 +1,58 @@
-# 🎟️ Ticket Booking Application
+# Ticket Booking Application
 
-A modern ticket booking platform that supports movies, concerts, sports events, workshops, theater performances, and other event types.
+A modern ticket booking platform built to support multiple types of content, including movies, concerts, sports events, theater performances, workshops, and exhibitions.
 
-The system is built with a scalable architecture that separates content management, venue management, showtime scheduling, and ticket booking into independent modules.
+The project is designed with scalability in mind, using Clean Architecture on the backend and a modern React-based frontend.
 
 ---
 
-## ✨ Features
+## Overview
 
-### Public Features
+Ticket Booking Application is a full-stack system that allows users to browse events, view schedules, and book tickets, while administrators can manage content, venues, halls, and showtimes through a dedicated dashboard.
+
+Unlike traditional movie-only booking systems, the platform is designed around a generic **Item** model, allowing multiple content types to coexist within the same architecture.
+
+Supported content types:
+
+* Movie
+* Concert
+* Sport Event
+* Theater
+* Workshop
+* Exhibition
+
+---
+
+## Key Features
+
+### Customer
 
 * Browse available items
-* View item details
 * Search and filter content
-* View showtimes
+* View item details
+* View schedules and showtimes
 * View venue information
-* Book tickets
-* Responsive user interface
-* Multi-language support (i18n)
+* Multi-language support
+* Responsive UI
 
-### Admin Features
+### Administration
 
-* Manage Items (Movies, Concerts, Sports, Workshops, etc.)
-* Manage Genres
-* Manage Venues
-* Manage Halls
-* Manage Showtimes
-* Upload Posters and Images
-* Rich Text Description Editor
-* Dashboard Management
+* Item Management
+* Venue Management
+* Hall Management
+* Showtime Management
+* Genre Management
+* Rich Text Content Editor
+* Image & Poster Upload
+* Metadata Management
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
-Backend follows Clean Architecture principles.
+### Backend
+
+The backend follows Clean Architecture principles.
 
 ```text
 server/
@@ -46,16 +64,16 @@ server/
 └── TicketBook.Persistence
 ```
 
-### Domain
+#### Domain
 
 Contains:
 
 * Entities
 * Enums
-* Value Objects
 * Domain Rules
+* Business Models
 
-### Application
+#### Application
 
 Contains:
 
@@ -63,18 +81,18 @@ Contains:
 * DTOs
 * Validators
 * Interfaces
-* Business Logic
+* Application Services
 
-### Infrastructure
+#### Infrastructure
 
 Contains:
 
+* Database Access
+* Authentication
 * External Services
 * File Storage
-* Authentication
-* Email Services
 
-### API
+#### API
 
 Contains:
 
@@ -85,7 +103,32 @@ Contains:
 
 ---
 
-## 📦 Core Entities
+### Frontend
+
+```text
+client/
+│
+├── app
+├── components
+├── hooks
+├── services
+├── lib
+├── types
+└── locales
+```
+
+Built with:
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* i18next
+* Lucide React
+
+---
+
+## Domain Model
 
 ### Item
 
@@ -96,9 +139,7 @@ Examples:
 * Movie
 * Concert
 * Sport Event
-* Theater
 * Workshop
-* Exhibition
 
 ### Venue
 
@@ -106,10 +147,10 @@ Represents a physical location.
 
 Examples:
 
-* CGV Vincom Đồng Khởi
-* Nhà Hát Hòa Bình
-* SECC
-* Mỹ Đình Stadium
+* Cinema
+* Theater
+* Stadium
+* Exhibition Center
 
 ### Hall
 
@@ -138,25 +179,25 @@ Venue
 
 ---
 
-## 🗄️ Database
+## Database Design
 
-Database:
+Database Engine:
 
 ```text
 PostgreSQL
 ```
 
-Relationships:
+Key relationships:
 
 ```text
-Item
-  └── Multiple Showtimes
+Venue (1)
+ └── (N) Halls
 
-Venue
-  └── Multiple Halls
+Hall (1)
+ └── (N) Showtimes
 
-Hall
-  └── Multiple Showtimes
+Item (1)
+ └── (N) Showtimes
 ```
 
 Showtime stores:
@@ -174,7 +215,7 @@ VenueId is intentionally not stored in Showtime because Hall already belongs to 
 
 ---
 
-## 🛠️ Tech Stack
+## Technology Stack
 
 ### Frontend
 
@@ -183,20 +224,15 @@ VenueId is intentionally not stored in Showtime because Hall already belongs to 
 * TypeScript
 * Tailwind CSS
 * i18next
-* Lucide React
 
 ### Backend
 
 * ASP.NET Core
 * Entity Framework Core
-* Clean Architecture
+* PostgreSQL
 * JWT Authentication
 
-### Database
-
-* PostgreSQL
-
-### Tools
+### Development Tools
 
 * DBeaver
 * Git
@@ -205,7 +241,7 @@ VenueId is intentionally not stored in Showtime because Hall already belongs to 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Clone Repository
 
@@ -213,26 +249,35 @@ VenueId is intentionally not stored in Showtime because Hall already belongs to 
 git clone https://github.com/NguyenMaiDuyKHOA/Ticket_Booking_Application.git
 ```
 
-### Backend Setup
+---
+
+### Backend
 
 ```bash
 cd server
+
 dotnet restore
+
 dotnet ef database update
+
 dotnet run --project TicketBook.API
 ```
 
-### Frontend Setup
+---
+
+### Frontend
 
 ```bash
 cd client
+
 npm install
+
 npm run dev
 ```
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Example:
 
@@ -252,31 +297,32 @@ Never commit production secrets.
 
 ---
 
-## 📋 Roadmap
+## Project Status
 
-* [x] Item Management
-* [x] Venue Management
-* [x] Hall Management
-* [x] Showtime Management
-* [x] Multi-language Support
-* [ ] Ticket Booking Flow
-* [ ] Seat Selection
-* [ ] Payment Integration
-* [ ] Review & Rating System
-* [ ] Analytics Dashboard
-* [ ] Redis Caching
-* [ ] Real-time Seat Availability
+Current Progress:
+
+* Item Management
+* Venue Management
+* Hall Management
+* Showtime Management
+* Multi-language Support
+* Rich Text Content Support
+
+Planned Features:
+
+* Seat Selection
+* Ticket Booking Flow
+* Online Payment
+* Reviews & Ratings
+* Analytics Dashboard
+* Redis Caching
+* Real-time Availability
 
 ---
 
-## 📄 License
+## Author
 
-This project is developed for learning, portfolio, and educational purposes.
+Khoa Duy
 
----
-
-## 👨‍💻 Author
-
-**Khoa Duy**
-
-GitHub: https://github.com/NguyenMaiDuyKHOA
+GitHub:
+https://github.com/NguyenMaiDuyKHOA
