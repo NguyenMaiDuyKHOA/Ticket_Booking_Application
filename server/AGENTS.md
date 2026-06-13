@@ -1,5 +1,6 @@
 # AGENTS.md
 
+## Backend Rules
 ## Project Overview
 
 Cinema Ticket Booking Application backend built with:

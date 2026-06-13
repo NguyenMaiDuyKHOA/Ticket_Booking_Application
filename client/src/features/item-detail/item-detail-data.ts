@@ -11,19 +11,22 @@ export type ItemDetail = {
     value: string;
   }>;
   format?: string;
-  genre: string;
+  genres: string[];
   id: string;
   image: string;
   location?: string;
   priceLabel: string;
   score: string;
+  startDate?: string;
   subtitle: string;
   summary: string;
   title: string;
   type: ItemType;
 };
 
-type LocalizedItemDetail = Omit<ItemDetail, "id" | "type">;
+type LocalizedItemDetail = Omit<ItemDetail, "genres" | "id" | "type"> & {
+  genre: string;
+};
 
 const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedItemDetail>>> = {
   cgv: {
@@ -198,8 +201,8 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         genre: "Live event",
         location: "District 1, Ho Chi Minh City",
         score: "9.3",
-        priceLabel: "From 390,000 VND",
-        image: "/bell.png",
+        priceLabel: "Sale off 50%",
+        image: "/event/musicfes.jpg",
         ctaHref: "/",
         facts: [
           { label: "Date", value: "20/05" },
@@ -216,7 +219,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Quận 1, TP. Hồ Chí Minh",
         score: "9.3",
         priceLabel: "Từ 390.000 VND",
-        image: "/bell.png",
+        image: "/event/musicfes.jpg",
         ctaHref: "/",
         facts: [
           { label: "Ngày", value: "20/05" },
@@ -235,7 +238,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Convention center",
         score: "8.9",
         priceLabel: "From 250,000 VND",
-        image: "/cart.png",
+        image: "/event/expo.jpg",
         ctaHref: "/",
         facts: [
           { label: "Format", value: "Expo" },
@@ -252,7 +255,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Trung tâm hội nghị",
         score: "8.9",
         priceLabel: "Tù 250.000 VND",
-        image: "/cart.png",
+        image: "/event/expo.jpg",
         ctaHref: "/",
         facts: [
           { label: "Định dạng", value: "Expo" },
@@ -271,7 +274,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Creative hub",
         score: "8.6",
         priceLabel: "From 180,000 VND",
-        image: "/logo.png",
+        image: "/event/workshop.jpg",
         ctaHref: "/",
         facts: [
           { label: "Duration", value: "3 hours" },
@@ -288,7 +291,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Creative hub",
         score: "8.6",
         priceLabel: "Từ 180.000 VND",
-        image: "/logo.png",
+        image: "/event/workshop.jpg",
         ctaHref: "/",
         facts: [
           { label: "Thời lượng", value: "3 giờ" },
@@ -381,7 +384,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Outdoor venue",
         score: "8.7",
         priceLabel: "From 520,000 VND",
-        image: "/logo.png",
+        image: "/event/musicfes.jpg",
         ctaHref: "/",
         facts: [
           { label: "Lineup", value: "Multi-artist" },
@@ -398,7 +401,7 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
         location: "Địa điểm ngoài trời",
         score: "8.7",
         priceLabel: "Từ 520.000 VND",
-        image: "/logo.png",
+        image: "/event/musicfes.jpg",
         ctaHref: "/",
         facts: [
           { label: "Lineup", value: "Nhiều nghệ sĩ" },
@@ -520,6 +523,15 @@ const localizedItems: Record<ItemType, Record<string, Record<Locale, LocalizedIt
   },
 };
 
+export function getItemsByType(
+  type: ItemType,
+  locale: Locale
+) {
+  return Object.entries(localizedItems[type]).map(
+    ([id, item]) => toItemDetail(id, type, item[locale] ?? item.en)
+  );
+}
+
 // Lists every static item detail route available in the frontend catalog.
 export function getItemDetailPaths() {
   return Object.entries(localizedItems).flatMap(([type, items]) =>
@@ -544,7 +556,16 @@ export function getItemDetail(type: string, id: string, locale: Locale): ItemDet
   }
 
   return {
-    ...localizedItem,
+    ...toItemDetail(id, type, localizedItem),
+  };
+}
+
+function toItemDetail(id: string, type: ItemType, item: LocalizedItemDetail): ItemDetail {
+  const { genre, ...detail } = item;
+
+  return {
+    ...detail,
+    genres: [genre],
     id,
     type,
   };

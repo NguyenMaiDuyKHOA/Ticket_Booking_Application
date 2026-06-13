@@ -3,8 +3,8 @@ using TicketBook.Application.Common;
 using TicketBook.Application.DTOs.Showtimes;
 using TicketBook.Application.Interfaces;
 using TicketBook.Domain.Entities;
-using TicketBook.Domain.Enums;
 using TicketBook.Infrastructure.Persistence;
+using TicketBook.Infrastructure.Persistence.Configurations;
 
 namespace TicketBook.Infrastructure.Services;
 
@@ -17,25 +17,38 @@ public sealed class ShowtimeService : IShowtimeService
         _dbContext = dbContext;
     }
 
-    public async Task<PagedResult<ShowtimeDto>> GetPagedAsync(Guid? movieId, Guid? cinemaId, DateOnly? date, int page, int pageSize, CancellationToken cancellationToken)
+    public async Task<PagedResult<ShowtimeDto>> GetPagedAsync(
+        Guid? itemTypeId,
+        Guid? itemId,
+        Guid? venueId,
+        Guid? hallId,
+        DateOnly? date,
+        int page,
+        int pageSize,
+        CancellationToken cancellationToken)
     {
         (page, pageSize) = NormalizePaging(page, pageSize);
 
-        var query = _dbContext.Showtimes
-            .AsNoTracking()
-            .Include(showtime => showtime.Movie)
-            .Include(showtime => showtime.Cinema)
-            .Include(showtime => showtime.Seats)
-            .AsQueryable();
+        var query = ShowtimeDetailsQuery();
 
-        if (movieId.HasValue)
+        if (itemTypeId.HasValue)
         {
-            query = query.Where(showtime => showtime.MovieId == movieId.Value);
+            query = query.Where(showtime => showtime.Item.ItemTypeId == itemTypeId.Value);
         }
 
-        if (cinemaId.HasValue)
+        if (itemId.HasValue)
         {
-            query = query.Where(showtime => showtime.CinemaId == cinemaId.Value);
+            query = query.Where(showtime => showtime.ItemId == itemId.Value);
+        }
+
+        if (venueId.HasValue)
+        {
+            query = query.Where(showtime => showtime.Hall.VenueId == venueId.Value);
+        }
+
+        if (hallId.HasValue)
+        {
+            query = query.Where(showtime => showtime.HallId == hallId.Value);
         }
 
         if (date.HasValue)
@@ -58,11 +71,7 @@ public sealed class ShowtimeService : IShowtimeService
 
     public async Task<ShowtimeDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var showtime = await _dbContext.Showtimes
-            .AsNoTracking()
-            .Include(candidate => candidate.Movie)
-            .Include(candidate => candidate.Cinema)
-            .Include(candidate => candidate.Seats)
+        var showtime = await ShowtimeDetailsQuery()
             .SingleOrDefaultAsync(candidate => candidate.Id == id, cancellationToken);
 
         return showtime?.ToDto() ?? throw new NotFoundException("Showtime was not found.");
@@ -70,27 +79,22 @@ public sealed class ShowtimeService : IShowtimeService
 
     public async Task<ShowtimeDto> CreateAsync(CreateShowtimeRequest request, CancellationToken cancellationToken)
     {
-        ValidateCreateRequest(request);
-
-        var movie = await _dbContext.Movies.SingleOrDefaultAsync(movie => movie.Id == request.MovieId, cancellationToken)
-            ?? throw new NotFoundException("Movie was not found.");
-
-        var cinemaExists = await _dbContext.Cinemas.AnyAsync(cinema => cinema.Id == request.CinemaId, cancellationToken);
-        if (!cinemaExists)
-        {
-            throw new NotFoundException("Cinema was not found.");
-        }
+        var showtimeStatusId = await ValidateAndResolveShowtimeValuesAsync(
+            request.ItemId,
+            request.HallId,
+            request.ShowtimeStatusId,
+            cancellationToken);
+        ValidateShowtimeRange(request.StartTime, request.EndTime, request.Price);
+        await EnsureHallDoesNotOverlapAsync(null, request.HallId, request.StartTime, request.EndTime, cancellationToken);
 
         var showtime = new Showtime
         {
-            MovieId = request.MovieId,
-            CinemaId = request.CinemaId,
+            ItemId = request.ItemId,
+            HallId = request.HallId,
+            ShowtimeStatusId = showtimeStatusId,
             StartTime = request.StartTime,
-            EndTime = request.StartTime.AddMinutes(movie.Duration),
-            RoomNumber = request.RoomNumber.Trim(),
-            StandardSeatPrice = request.StandardSeatPrice,
-            VipSeatPrice = request.VipSeatPrice,
-            Seats = GenerateSeats(request.SeatCount, request.VipSeatCount)
+            EndTime = request.EndTime,
+            Price = request.Price
         };
 
         _dbContext.Showtimes.Add(showtime);
@@ -101,10 +105,15 @@ public sealed class ShowtimeService : IShowtimeService
 
     public async Task<ShowtimeDto> UpdateAsync(Guid id, UpdateShowtimeRequest request, CancellationToken cancellationToken)
     {
-        ValidateUpdateRequest(request);
+        var showtimeStatusId = await ValidateAndResolveShowtimeValuesAsync(
+            request.ItemId,
+            request.HallId,
+            request.ShowtimeStatusId,
+            cancellationToken);
+        ValidateShowtimeRange(request.StartTime, request.EndTime, request.Price);
+        await EnsureHallDoesNotOverlapAsync(id, request.HallId, request.StartTime, request.EndTime, cancellationToken);
 
         var showtime = await _dbContext.Showtimes
-            .Include(candidate => candidate.Movie)
             .SingleOrDefaultAsync(candidate => candidate.Id == id, cancellationToken)
             ?? throw new NotFoundException("Showtime was not found.");
 
@@ -114,11 +123,12 @@ public sealed class ShowtimeService : IShowtimeService
             throw new ConflictException("Cannot update a showtime that already has bookings.");
         }
 
+        showtime.ItemId = request.ItemId;
+        showtime.HallId = request.HallId;
+        showtime.ShowtimeStatusId = showtimeStatusId;
         showtime.StartTime = request.StartTime;
-        showtime.EndTime = request.StartTime.AddMinutes(showtime.Movie.Duration);
-        showtime.RoomNumber = request.RoomNumber.Trim();
-        showtime.StandardSeatPrice = request.StandardSeatPrice;
-        showtime.VipSeatPrice = request.VipSeatPrice;
+        showtime.EndTime = request.EndTime;
+        showtime.Price = request.Price;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
@@ -140,60 +150,113 @@ public sealed class ShowtimeService : IShowtimeService
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    private static List<Seat> GenerateSeats(int seatCount, int vipSeatCount)
+    private IQueryable<Showtime> ShowtimeDetailsQuery() =>
+        _dbContext.Showtimes
+            .AsNoTracking()
+            .Include(showtime => showtime.Item).ThenInclude(item => item.ItemType)
+            .Include(showtime => showtime.ShowtimeStatus)
+            .Include(showtime => showtime.Hall).ThenInclude(hall => hall.Venue)
+            .Include(showtime => showtime.Hall).ThenInclude(hall => hall.Seats).ThenInclude(seat => seat.SeatType)
+            .Include(showtime => showtime.BookedSeats).ThenInclude(bookedSeat => bookedSeat.Booking);
+
+    private async Task<Guid> ValidateAndResolveShowtimeValuesAsync(
+        Guid itemId,
+        Guid hallId,
+        Guid? showtimeStatusId,
+        CancellationToken cancellationToken)
     {
-        var seats = new List<Seat>(seatCount);
-
-        for (var index = 1; index <= seatCount; index++)
+        if (itemId == Guid.Empty || hallId == Guid.Empty)
         {
-            var row = (char)('A' + ((index - 1) / 10));
-            var number = ((index - 1) % 10) + 1;
-
-            seats.Add(new Seat
-            {
-                SeatNumber = $"{row}{number}",
-                SeatType = index > seatCount - vipSeatCount ? SeatType.Vip : SeatType.Standard
-            });
+            throw new ValidationException("Item and hall are required.");
         }
 
-        return seats;
+        var item = await _dbContext.Items
+            .AsNoTracking()
+            .Include(item => item.ItemType)
+            .SingleOrDefaultAsync(item => item.Id == itemId, cancellationToken)
+            ?? throw new NotFoundException("Item was not found.");
+
+        var hall = await _dbContext.Halls
+            .AsNoTracking()
+            .Include(hall => hall.HallType)
+            .Include(hall => hall.ItemType)
+            .SingleOrDefaultAsync(hall => hall.Id == hallId, cancellationToken)
+            ?? throw new NotFoundException("Hall was not found.");
+
+        ValidateItemTypeMatchesHall(item, hall);
+        ValidateItemSupportsHallType(item, hall);
+
+        var resolvedStatusId = showtimeStatusId.GetValueOrDefault(ShowtimeStatusConfiguration.ScheduledId);
+        var statusExists = await _dbContext.ShowtimeStatuses
+            .AnyAsync(status => status.Id == resolvedStatusId, cancellationToken);
+        if (!statusExists)
+        {
+            throw new NotFoundException("Showtime status was not found.");
+        }
+
+        return resolvedStatusId;
     }
 
-    private static void ValidateCreateRequest(CreateShowtimeRequest request)
+    private static void ValidateItemTypeMatchesHall(Item item, Hall hall)
     {
-        ValidatePricesAndRoom(request.RoomNumber, request.StandardSeatPrice, request.VipSeatPrice);
-
-        if (request.SeatCount <= 0)
+        // Business rule: a hall is scheduled only for the item type it was configured to host.
+        // This keeps the admin flow generic while preventing a concert/show/event from using CGV-only halls.
+        if (item.ItemTypeId != hall.ItemTypeId)
         {
-            throw new ValidationException("Seat count must be greater than zero.");
-        }
-
-        if (request.VipSeatCount < 0 || request.VipSeatCount > request.SeatCount)
-        {
-            throw new ValidationException("VIP seat count must be between zero and total seat count.");
+            throw new ValidationException($"Selected hall is configured for {hall.ItemType.Name}, not {item.ItemType.Name}.");
         }
     }
 
-    private static void ValidateUpdateRequest(UpdateShowtimeRequest request)
+    private static void ValidateItemSupportsHallType(Item item, Hall hall)
     {
-        ValidatePricesAndRoom(request.RoomNumber, request.StandardSeatPrice, request.VipSeatPrice);
+        var metadata = ItemMetadataSerializer.DeserializeKnownMetadata(item.ItemType.Slug, item.Metadata);
+        if (metadata is not TicketBook.Domain.ValueObjects.CinemaItemMetadata cinemaMetadata)
+        {
+            return;
+        }
+
+        // Business rule: cinema items explicitly declare the hall formats they support.
+        // Showtime stores HallId only, so the selected Hall's HallTypeId is the source of truth.
+        if (cinemaMetadata.SupportedHallTypeIds is null || !cinemaMetadata.SupportedHallTypeIds.Contains(hall.HallTypeId))
+        {
+            throw new ValidationException($"Item does not support the selected hall format: {hall.HallType.Name}.");
+        }
     }
 
-    private static void ValidatePricesAndRoom(string roomNumber, decimal standardSeatPrice, decimal vipSeatPrice)
+    private static void ValidateShowtimeRange(DateTimeOffset startTime, DateTimeOffset endTime, decimal price)
     {
-        if (string.IsNullOrWhiteSpace(roomNumber))
+        if (startTime >= endTime)
         {
-            throw new ValidationException("Room number is required.");
+            throw new ValidationException("Showtime start time must be earlier than end time.");
         }
 
-        if (standardSeatPrice <= 0 || vipSeatPrice <= 0)
+        if (price < 0)
         {
-            throw new ValidationException("Seat prices must be greater than zero.");
+            throw new ValidationException("Showtime price cannot be negative.");
         }
+    }
 
-        if (vipSeatPrice < standardSeatPrice)
+    private async Task EnsureHallDoesNotOverlapAsync(
+        Guid? currentShowtimeId,
+        Guid hallId,
+        DateTimeOffset startTime,
+        DateTimeOffset endTime,
+        CancellationToken cancellationToken)
+    {
+        // Business rule: one physical hall cannot host two sellable sessions at the same time.
+        // Conflict formula: NewStart < ExistingEnd && NewEnd > ExistingStart.
+        var hasOverlap = await _dbContext.Showtimes
+            .AsNoTracking()
+            .AnyAsync(showtime =>
+                showtime.HallId == hallId &&
+                (!currentShowtimeId.HasValue || showtime.Id != currentShowtimeId.Value) &&
+                startTime < showtime.EndTime &&
+                endTime > showtime.StartTime,
+                cancellationToken);
+
+        if (hasOverlap)
         {
-            throw new ValidationException("VIP seat price must be greater than or equal to standard seat price.");
+            throw new ConflictException("Hall already has another showtime in this time range.");
         }
     }
 

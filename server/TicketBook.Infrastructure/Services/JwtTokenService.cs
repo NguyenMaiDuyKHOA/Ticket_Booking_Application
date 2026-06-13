@@ -25,7 +25,7 @@ public sealed class JwtTokenService : IJwtTokenService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim("phone_number", user.Phone),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Role, user.Role.ToString())
         };
@@ -42,8 +42,8 @@ public sealed class JwtTokenService : IJwtTokenService
         return new AuthResponse(
             user.Id,
             user.FullName,
-            user.Email,
-            user.Role,
+            user.Phone,
+            user.Role.ToString(),
             new JwtSecurityTokenHandler().WriteToken(token),
             expiresAt);
     }

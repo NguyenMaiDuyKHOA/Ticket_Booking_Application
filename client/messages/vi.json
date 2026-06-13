@@ -8,9 +8,23 @@
     "vi": "VI",
     "en": "EN"
   },
+  "AccountMenu": {
+    "label": "Menu tài khoản",
+    "profile": "Hồ sơ người dùng",
+    "ticketHistory": "Lịch sử vé",
+    "language": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "logoutSuccess": "Đăng xuất thành công.",
+    "sessionExpired": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
+    "admin": "Quản lý"
+  },
   "Home": {
     "brand": "TicketPro",
     "nav": {
+      "home": "Trang chủ",
       "ticketTypes": "Loại vé",
       "search": "Tìm kiếm",
       "featured": "Nổi bật",
@@ -45,22 +59,22 @@
       "cgv": {
         "title": "CGV",
         "description": "Đặt ghế xem phim, chọn suất chiếu và combo rạp.",
-        "cta": "Đặt vé CGV"
+        "cta": "Đặt vé ngay"
       },
       "event": {
         "title": "Event",
         "description": "Khám phá hội nghị, triển lãm và sự kiện cộng đồng.",
-        "cta": "Xem event"
+        "cta": "Đến xem"
       },
       "concert": {
         "title": "Concert",
         "description": "Tìm show âm nhạc, sân khấu live và tour nghệ sĩ.",
-        "cta": "Xem concert"
+        "cta": "Đến xem"
       },
       "tour": {
         "title": "Tour",
         "description": "Xem chuyến đi, trải nghiệm thành phố và tour hướng dẫn.",
-        "cta": "Xem tour"
+        "cta": "Đến xem"
       }
     },
     "featured": {
@@ -87,7 +101,9 @@
   "Booking": {
     "brand": "TicketPro",
     "nav": {
+      "ticketTypes": "Loại vé",
       "movies": "Phim",
+      "home": "Trang chủ",
       "schedule": "Lịch chiếu",
       "food": "Combo",
       "support": "Hỗ trợ",
@@ -257,7 +273,8 @@
       "confirmPassword": "Nhập lại mật khẩu"
     },
     "errors": {
-      "passwordMismatch": "Mật khẩu xác nhận không khớp."
+      "passwordMismatch": "Mật khẩu xác nhận không khớp.",
+      "authFailed": "Không thể đăng nhập hoặc đăng ký. Vui lòng thử lại."
     },
     "benefits": {
       "seatHold": "Giữ ghế đã chọn cho đến khi thanh toán hoàn tất",
@@ -267,18 +284,71 @@
     "aria": {
       "showPassword": "Hiện Mật khẩu",
       "hidePassword": "Ẩn mật khẩu"
+    },
+    "submitting": "Đang xử lý...",
+    "toast": {
+      "loginSuccess": "Đăng nhập thành công.",
+      "registerSuccess": "Đăng ký thành công."
     }
   },
   "ItemDetail": {
-    "back": "Quay lai",
-    "details": "Thông tin",
-    "overview": "Tổng quan",
+    "back": "Quay lại",
+    "details": "Chi tiết",
+    "locationLabel": "Địa điểm",
+    "overview": "Tóm tắt",
+    "priceFrom": "Giá từ",
     "primaryCta": "Tiếp tục đặt vé",
     "types": {
       "cgv": "Phim",
       "event": "Sự kiện",
       "concert": "Concert",
       "tour": "Tour"
+    },
+    "genres": {
+      "action": "Hành động",
+      "drama": "Tâm lý",
+      "family": "Gia đình",
+      "comedy": "Hài hước",
+      "romance": "Lãng mạn",
+      "sciFi": "Khoa học viễn tưởng",
+      "fantasy": "Giả tưởng",
+      "horror": "Kinh dị",
+      "music": "Âm nhạc",
+      "art": "Nghệ thuật",
+      "business": "Kinh doanh",
+      "food": "Ẩm thực",
+      "history": "Lịch sử",
+      "nature": "Thiên nhiên",
+      "technology": "Công nghệ",
+      "cartoon": "Hoạt hình",
+      "superhero": "Siêu anh hùng",
+      "thriller": "Giật gân",
+      "mystery": "Bí ẩn",
+      "documentary": "Tài liệu",
+      "biography": "Tiểu sử",
+      "sports": "Thể thao",
+      "travel": "Du lịch",
+      "wellness": "Sức khỏe",
+      "familyFriendly": "Gia đình",
+      "kids": "Trẻ em",
+      "teen": "Thiếu niên",
+      "adult": "Người lớn",
+      "adventure": "Phiêu lưu",
+      "actionAdventure": "Hành động phiêu lưu"
+    },
+    "ageRatings": {
+      "P": " - Phim được phép phổ biến đến người xem ở mọi độ tuổi",
+      "K": " - Phim được phép phổ biến đến người xem từ đủ 6 tuổi trở lên (6+)",
+      "T13": " - Phim được phép phổ biến đến người xem từ đủ 13 tuổi trở lên (13+)",
+      "T16": " - Phim được phép phổ biến đến người xem từ đủ 16 tuổi trở lên (16+)",
+      "T18": " - Phim được phép phổ biến đến người xem từ đủ 18 tuổi trở lên (18+)"
+    },
+    "fact": {
+      "ageRating": "Phân loại độ tuổi",
+      "startDate": "Ngày bắt đầu",
+      "duration": "Thời lượng",
+      "displayFormat": "Định dạng",
+      "location": "Địa điểm"
     }
   },
   "Rank": {
@@ -377,6 +447,162 @@
           "meta": "Ẩm thực buổi tối"
         }
       }
+    }
+  },
+  "Admin": {
+    "eyebrow": "Khu vực quản trị",
+    "title": "Quản lý TicketPro",
+    "subtitle": "Quản lý nội dung bán vé, danh sách sự kiện và đơn đặt vé theo quyền admin.",
+    "loading": "Đang kiểm tra quyền truy cập...",
+    "forbidden": {
+      "title": "Không có quyền truy cập",
+      "description": "Trang này chỉ dành cho tài khoản có role Admin.",
+      "backHome": "Về trang chủ"
+    },
+    "tabs": {
+      "add": "Thêm",
+      "list": "Danh sách",
+      "showtimes": "Suất chiếu",
+      "orders": "Đơn hàng"
+    },
+    "types": {
+      "event": "Sự kiện",
+      "concert": "Tiệc hát",
+      "sport": "Thể thao",
+      "cinema": "Rạp phim",
+      "liveShow": "Chương trình trực tiếp",
+      "loading": "Đang tải loại nội dung...",
+      "empty": "Chưa có loại nội dung"
+    },
+    "statuses": {
+      "loading": "Đang tải trạng thái Item...",
+      "empty": "Chọn trạng thái Item",
+      "draft": "Bản nháp",
+      "published": "Đã xuất bản",
+      "archived": "Đã lưu trữ",
+      "cancelled": "Đã hủy"
+    },
+    "genres": {
+      "title": "Genres",
+      "loading": "Đang tải genres...",
+      "empty": "Chọn genres",
+      "selected": "Đã chọn {count}"
+    },
+    "cities": {
+      "loading": "Đang tải thành phố...",
+      "empty": "Chọn tỉnh/thành phố"
+    },
+    "errors": {
+      "itemTypeRequired": "Vui lòng chọn loại Item.",
+      "requiredFields": "Tiêu đề, slug, ngày bắt đầu và mô tả là bắt buộc.",
+      "statusRequired": "Vui lòng chọn trạng thái Item.",
+      "priceNonNegative": "Giá vé không được âm."
+    },
+    "add": {
+      "typeTitle": "Loại nội dung",
+      "heading": "Thêm {type}",
+      "description": "Tạo Item dùng chung và nhập metadata theo loại nội dung đang chọn.",
+      "saveDraft": "Tạo item",
+      "creating": "Đang tạo...",
+      "createSuccess": "Tạo item thành công.",
+      "createError": "Không thể tạo item.",
+      "itemPayloadPreview": "Xem trước payload Item"
+    },
+    "metadata": {
+      "title": "Meta",
+      "cinemaDescription": "Metadata của cinema được lưu trong Item.Metadata với score mặc định 10, duration, age rating và các định dạng phòng chiếu hỗ trợ. Genres được gán riêng.",
+      "eventDescription": "Metadata của event lưu thành phố chuẩn hóa và địa chỉ chi tiết. Genres được gán riêng.",
+      "genericDescription": "Loại nội dung này chưa có form metadata riêng, nên metadata được nhập bằng JSON.",
+      "duration": "Thời lượng",
+      "ageRating": "Phân loại độ tuổi",
+      "format": "Định dạng",
+      "city": "Thành phố",
+      "location": "Địa điểm",
+      "detailLocation": "Địa chỉ chi tiết",
+      "json": "Metadata JSON",
+      "preview": "Xem trước metadata",
+      "invalidJson": "Metadata phải là một JSON object hợp lệ."
+    },
+    "upload": {
+      "image": "Tải ảnh bìa",
+      "poster": "Tải poster",
+      "ready": "Đã chọn trên máy. Ảnh sẽ upload khi submit.",
+      "urlPlaceholder": "Hoặc dán URL ảnh",
+      "uploading": "Đang tải ảnh...",
+      "success": "Tải ảnh thành công.",
+      "error": "Không thể tải ảnh."
+    },
+    "fields": {
+      "title": "Tiêu đề",
+      "slug": "Slug",
+      "itemType": "Loại Item",
+      "venue": "Địa điểm",
+      "startTime": "Thời gian bắt đầu",
+      "startDate": "Ngày bắt đầu",
+      "price": "Giá vé",
+      "status": "Trạng thái",
+      "imageUrl": "Ảnh bìa",
+      "posterUrl": "Ảnh poster",
+      "description": "Mô tả"
+    },
+    "placeholders": {
+      "title": "Nhập tên item",
+      "slug": "auto-generated-slug",
+      "venue": "Galaxy Nguyễn Du / Sân khấu chính",
+      "description": "Tóm tắt nội dung, điều kiện vé và thông tin cần hiển thị.",
+      "format": "2D / Live / Stage",
+      "location": "TP. Hồ Chí Minh",
+      "detailLocation": "Sân khấu chính, đường Nguyễn Du",
+      "duration": "120",
+      "ageRating": "T13 / T16 / T18",
+      "metadataJson": "{ \"artist\": \"Tên nghệ sĩ\" }"
+    },
+    "list": {
+      "heading": "Danh sách nội dung",
+      "id": "Mã",
+      "title": "Tiêu đề",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "showtimeCount": "Số suất chiếu",
+      "loading": "Đang tải item từ database...",
+      "empty": "Database chưa có item.",
+      "error": "Không thể tải danh sách item."
+    },
+    "orders": {
+      "heading": "Đơn đặt vé",
+      "code": "Mã đơn",
+      "customer": "Khách hàng",
+      "amount": "Tổng tiền",
+      "status": "Trạng thái"
+    },
+    "showtimesForm": {
+      "heading": "Quản lý suất chiếu",
+      "description": "Quản lý suất chiếu sau khi đã tạo item. Venue chỉ dùng để lọc hall.",
+      "venueL": "Địa điểm",
+      "hall": "Phòng chiếu",
+      "selectItem": "Chọn nội dung suất chiếu",
+      "selectCity": "Chọn tỉnh/thành phố",
+      "selectVenue": "Chọn rạp",
+      "selectHall": "Chọn phòng chiếu",
+      "cityLabel": "Tỉnh/thành phố",
+      "venueLabel": "Địa điểm",
+      "hallLabel": "Phòng chiếu",
+      "startDateTimeLabel": "Thời gian bắt đầu",
+      "endDateTimeLabel": "Thời gian kết thúc",
+      "priceLabel": "Giá vé",
+      "statusLabel": "Trạng thái",
+      "itemLabel": "Nội dung",
+      "itemFilterLabel": "Lọc theo item",
+      "allItems": "Tất cả item",
+      "loadingItems": "Đang tải item...",
+      "loadingShowtimes": "Đang tải suất chiếu...",
+      "emptyItems": "Chưa có item nào trong database.",
+      "emptyShowtimes": "Chưa có suất chiếu nào cho item này.",
+      "errorItems": "Không thể tải item.",
+      "errorShowtimes": "Không thể tải suất chiếu.",
+      "dateLabel": "Ngày",
+      "actionsLabel": "Hành động",
+      "addShowtime": "Thêm suất chiếu"
     }
   }
 }

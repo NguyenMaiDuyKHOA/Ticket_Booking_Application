@@ -3,42 +3,25 @@
 import Image from "next/image";
 import { Film } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 
 import { FilterDropdown } from "./filter-dropdown";
-import { LocaleSwitcher } from "./locale-switcher";
-
-type NavbarVariant = "home" | "booking";
-
-// Defines section links for the CGV booking experience.
-const bookingNavItems = [
-  { href: "#movies", labelKey: "nav.movies" },
-  { href: "#schedule", labelKey: "nav.schedule" },
-  { href: "#combos", labelKey: "nav.food" },
-  { href: "#checkout", labelKey: "nav.support" },
-] as const;
-
-// Defines section links for the Home ticket discovery experience.
-const homeNavItems = [
-  { href: "#ticket-types", labelKey: "nav.ticketTypes" },
-  { href: "#search", labelKey: "nav.search" },
-  { href: "#featured", labelKey: "nav.featured" },
-  { href: "#support", labelKey: "nav.support" },
-] as const;
+import { UserMenu } from "./user-menu";
 
 type NavbarProps = {
-  variant?: NavbarVariant;
+  variant?: "booking" | "default" | "home";
 };
 
 // Renders the shared navigation bar with localized links and utility actions.
-export function Navbar({ variant = "booking" }: NavbarProps) {
-  const t = useTranslations(variant === "home" ? "Home" : "Booking");
-  const navItems = variant === "home" ? homeNavItems : bookingNavItems;
+export function Navbar({ variant = "default" }: NavbarProps = {}) {
+  const t = useTranslations("Home");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/" || variant === "home";
   const ticketTypeOptions = [
     { href: "/cgv", label: "CGV", value: "cgv" },
-    { href: "#ticket-types", label: "Event", value: "event" },
-    { href: "#ticket-types", label: "Concert", value: "concert" },
-    { href: "#ticket-types", label: "Tour", value: "tour" },
+    { href: "/event", label: "Event", value: "event" },
+    { href: "/concert", label: "Concert", value: "concert" },
+    { href: "/tour", label: "Tour", value: "tour" },
   ];
 
   return (
@@ -52,27 +35,35 @@ export function Navbar({ variant = "booking" }: NavbarProps) {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-semibold text-neutral-600 md:flex">
-          {variant === "home" ? (
-            <FilterDropdown
-              label={t("nav.ticketTypes")}
-              menuClassName="min-w-44"
-              options={ticketTypeOptions}
-              variant="nav"
-            />
-          ) : null}
+          {!isHomePage && (
+            <Link href="/" className="hover:text-neutral-950">
+              {t("nav.home")}
+            </Link>
+          )}
+          
+          <FilterDropdown
+            label={t("nav.ticketTypes")}
+            menuClassName="min-w-44"
+            options={ticketTypeOptions}
+            variant="nav"
+          />
 
-          {navItems
+          <a href="" className="hover:text-neutral-950">{t("nav.search")}</a>
+          <a href="" className="hover:text-neutral-950">{t("nav.featured")}</a>
+          <a href="" className="hover:text-neutral-950">{t("nav.support")}</a>
+
+
+          {/* {navItems
             .filter((item) => variant !== "home" || item.labelKey !== "nav.ticketTypes")
             .map((item) => (
               <a key={item.href} className="hover:text-neutral-950" href={item.href}>
                 {t(item.labelKey)}
               </a>
-            ))}
+            ))} */}
         </nav>
 
         <div className="flex items-center gap-5">
-          <div className="items-center md:flex gap-5">
-            {/* Utility actions reserve space for account and notification flows. */}
+          <div className="flex items-center gap-5">
             <Link href="#" aria-label={t("nav.notifications")}>
               <Image
                 src="/bell.png"
@@ -83,19 +74,8 @@ export function Navbar({ variant = "booking" }: NavbarProps) {
                 aria-hidden="true"
               />
             </Link>
-            <Link href="/login" aria-label={t("nav.account")}>
-              <Image
-                src="/pesonal.png"
-                alt=""
-                width={20}
-                height={20}
-                className="h-5 w-5"
-                aria-hidden="true"
-              />
-            </Link>
+            <UserMenu />
           </div>
-
-          <LocaleSwitcher />
         </div>
       </div>
     </header>

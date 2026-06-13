@@ -8,9 +8,23 @@
     "vi": "VI",
     "en": "EN"
   },
+  "AccountMenu": {
+    "label": "Account menu",
+    "profile": "User profile",
+    "ticketHistory": "Ticket history",
+    "language": "Language",
+    "vi": "Vietnamese",
+    "en": "English",
+    "login": "Login",
+    "logout": "Logout",
+    "logoutSuccess": "Logged out successfully.",
+    "sessionExpired": "Your session has expired. Please log in again.",
+    "admin": "Admin"
+  },
   "Home": {
     "brand": "TicketPro",
     "nav": {
+      "home": "Home",
       "ticketTypes": "Tickets",
       "search": "Search",
       "featured": "Featured",
@@ -45,22 +59,22 @@
       "cgv": {
         "title": "CGV",
         "description": "Reserve movie seats, showtimes and cinema combos.",
-        "cta": "Book CGV"
+        "cta": "Take tickets"
       },
       "event": {
         "title": "Event",
         "description": "Discover conferences, exhibitions and community events.",
-        "cta": "View events"
+        "cta": "View"
       },
       "concert": {
         "title": "Concert",
         "description": "Find music shows, live stages and artist tours.",
-        "cta": "View concerts"
+        "cta": "View"
       },
       "tour": {
         "title": "Tour",
         "description": "Browse trips, city experiences and guided tours.",
-        "cta": "View tours"
+        "cta": "View"
       }
     },
     "featured": {
@@ -87,7 +101,9 @@
   "Booking": {
     "brand": "TicketPro",
     "nav": {
+      "ticketTypes": "Tickets",
       "movies": "Movies",
+      "home": "Home",
       "schedule": "Schedule",
       "food": "Food",
       "support": "Support",
@@ -257,7 +273,8 @@
       "confirmPassword": "Re-enter your password"
     },
     "errors": {
-      "passwordMismatch": "Passwords do not match."
+      "passwordMismatch": "Passwords do not match.",
+      "authFailed": "Unable to login or register. Please try again."
     },
     "benefits": {
       "seatHold": "Keep selected seats while checking out",
@@ -267,18 +284,71 @@
     "aria": {
       "showPassword": "Show password",
       "hidePassword": "Hide password"
+    },
+    "submitting": "Processing...",
+    "toast": {
+      "loginSuccess": "Logged in successfully.",
+      "registerSuccess": "Registered successfully."
     }
   },
   "ItemDetail": {
     "back": "Back",
     "details": "Details",
+    "locationLabel": "Location",
     "overview": "Overview",
+    "priceFrom": "From",
     "primaryCta": "Continue booking",
     "types": {
       "cgv": "Movie",
       "event": "Event",
       "concert": "Concert",
       "tour": "Tour"
+    },
+    "genres": {
+      "action": "Action",
+      "drama": "Drama",
+      "family": "Family",
+      "comedy": "Comedy",
+      "romance": "Romance",
+      "sciFi": "Sci-Fi",
+      "fantasy": "Fantasy",
+      "horror": "Horror",
+      "music": "Music",
+      "art": "Art",
+      "business": "Business",
+      "food": "Food",
+      "history": "History",
+      "nature": "Nature",
+      "technology": "Technology",
+      "cartoon": "Cartoon",
+      "superhero": "Superhero",
+      "thriller": "Thriller",
+      "mystery": "Mystery",
+      "documentary": "Documentary",
+      "biography": "Biography",
+      "sports": "Sports",
+      "travel": "Travel",
+      "wellness": "Wellness",
+      "familyFriendly": "Family Friendly",
+      "kids": "Kids",
+      "teen": "Teen",
+      "adult": "Adult",
+      "adventure": "Adventure",
+      "actionAdventure": "Action Adventure"
+    },
+    "ageRatings": {
+      "P": " - Movie permitted for viewing by audiences of all ages",
+      "K": " - Movie permitted for viewing by audiences aged 6 and above (6+)",
+      "T13": " - Movie permitted for viewing by audiences aged 13 and above (13+)",
+      "T16": " - Movie permitted for viewing by audiences aged 16 and above (16+)",
+      "T18": " - Movie permitted for viewing by audiences aged 18 and above (18+)"
+    },
+    "fact": {
+      "ageRating": "Age rating",
+      "startDate": "Start date",
+      "duration": "Duration",
+      "displayFormat": "Display format",
+      "location": "Location"
     }
   },
   "Rank": {
@@ -377,6 +447,162 @@
           "meta": "Evening tasting"
         }
       }
+    }
+  },
+  "Admin": {
+    "eyebrow": "Admin area",
+    "title": "TicketPro management",
+    "subtitle": "Manage ticket content, event listings and booking orders with admin permission.",
+    "loading": "Checking access...",
+    "forbidden": {
+      "title": "Access denied",
+      "description": "This page is only available for accounts with the Admin role.",
+      "backHome": "Back home"
+    },
+    "tabs": {
+      "add": "Add",
+      "list": "List",
+      "showtimes": "Showtimes",
+      "orders": "Orders"
+    },
+    "types": {
+      "event": "Event",
+      "concert": "Concert",
+      "sport": "Sport",
+      "cinema": "Cinema",
+      "liveShow": "Live show",
+      "loading": "Loading item types...",
+      "empty": "No item types"
+    },
+    "statuses": {
+      "loading": "Loading item statuses...",
+      "empty": "Select Item Status",
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived",
+      "cancelled": "Cancelled"
+    },
+    "genres": {
+      "title": "Genres",
+      "loading": "Loading genres...",
+      "empty": "Select genres",
+      "selected": "{count} selected"
+    },
+    "cities": {
+      "loading": "Loading cities...",
+      "empty": "Select cities"
+    },
+    "errors": {
+      "itemTypeRequired": "Please choose an item type.",
+      "requiredFields": "Title, slug, start date and description are required.",
+      "statusRequired": "Please choose an item status.",
+      "priceNonNegative": "Ticket price cannot be negative."
+    },
+    "add": {
+      "typeTitle": "Content type",
+      "heading": "Add {type}",
+      "description": "Create a generic Item and fill metadata according to the selected item type.",
+      "saveDraft": "Create item",
+      "creating": "Creating...",
+      "createSuccess": "Item created successfully.",
+      "createError": "Unable to create item.",
+      "itemPayloadPreview": "Item payload preview"
+    },
+    "metadata": {
+      "title": "Type metadata",
+      "cinemaDescription": "Cinema metadata is stored in Item.Metadata with default score 10, duration, age rating and supported hall formats. Genres are assigned separately.",
+      "eventDescription": "Event metadata stores a normalized city and a detailed local address. Genres are assigned separately.",
+      "genericDescription": "This item type does not have a dedicated metadata form yet, so metadata is edited as JSON.",
+      "duration": "Duration",
+      "ageRating": "Age rating",
+      "format": "Format",
+      "city": "City",
+      "location": "Location",
+      "detailLocation": "Detail location",
+      "json": "Metadata JSON",
+      "preview": "Metadata preview",
+      "invalidJson": "Metadata must be a valid JSON object."
+    },
+    "upload": {
+      "image": "Upload cover image",
+      "poster": "Upload poster",
+      "ready": "Selected locally. It will upload when you submit.",
+      "urlPlaceholder": "Or paste an image URL",
+      "uploading": "Uploading...",
+      "success": "Image uploaded successfully.",
+      "error": "Unable to upload image."
+    },
+    "fields": {
+      "title": "Title",
+      "slug": "Slug",
+      "itemType": "Item type",
+      "venue": "Venue",
+      "startTime": "Start time",
+      "startDate": "Start date",
+      "price": "Ticket price",
+      "status": "Status",
+      "imageUrl": "Cover image",
+      "posterUrl": "Poster image",
+      "description": "Description"
+    },
+    "placeholders": {
+      "title": "Enter item name",
+      "slug": "auto-generated-slug",
+      "venue": "Galaxy Nguyen Du / Main stage",
+      "description": "Summarize content, ticket rules and display information.",
+      "format": "2D / Live / Stage",
+      "location": "Ho Chi Minh City",
+      "detailLocation": "Main stage, Nguyen Du Street",
+      "duration": "120",
+      "ageRating": "T13 / T16 / T18",
+      "metadataJson": "{ \"artist\": \"Artist name\" }"
+    },
+    "list": {
+      "heading": "Content list",
+      "id": "ID",
+      "title": "Title",
+      "type": "Type",
+      "status": "Status",
+      "showtimeCount": "Showtimes",
+      "loading": "Loading items from database...",
+      "empty": "No items in the database yet.",
+      "error": "Unable to load items."
+    },
+    "orders": {
+      "heading": "Booking orders",
+      "code": "Order code",
+      "customer": "Customer",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "showtimesForm": {
+      "heading": "Manage Showtimes",
+      "description": "Manage showtimes after an item has been created. Venue is only used to filter halls.",
+      "venueL": "Venue",
+      "hall": "Hall",
+      "selectItem": "Select Showtime Content",
+      "selectCity": "Select city",
+      "selectVenue": "Select Venue",
+      "selectHall": "Select Hall",
+      "cityLabel": "City",
+      "venueLabel": "Venue",
+      "hallLabel": "Hall",
+      "startDateTimeLabel": "Start DateTime",
+      "endDateTimeLabel": "End DateTime",
+      "priceLabel": "Price",
+      "statusLabel": "Status",
+      "itemLabel": "Content",
+      "itemFilterLabel": "Filter by item",
+      "allItems": "All items",
+      "loadingItems": "Loading items...",
+      "loadingShowtimes": "Loading showtimes...",
+      "emptyItems": "No items in the database.",
+      "emptyShowtimes": "No showtimes available for this item.",
+      "errorItems": "Unable to load items.",
+      "errorShowtimes": "Unable to load showtimes.",
+      "dateLabel": "Date",
+      "actionsLabel": "Actions",
+      "addShowtime": "Add Showtime"
     }
   }
 }

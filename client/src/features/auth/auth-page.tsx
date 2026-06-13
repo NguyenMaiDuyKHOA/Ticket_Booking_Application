@@ -18,7 +18,9 @@ import { useTranslations } from "next-intl";
 import { FormEvent, useState } from "react";
 
 import { Navbar } from "@/components/navbar";
-import { Link } from "@/i18n/navigation";
+import { useToast } from "@/components/toast";
+import { Link, useRouter } from "@/i18n/navigation";
+import { loginWithPhone, registerWithPhone, storeAuthSession } from "@/lib/auth-api";
 
 export type AuthMode = "login" | "register";
 
@@ -156,21 +158,54 @@ export function AuthPage({ mode }: AuthPageProps) {
 // Renders validated auth inputs while deferring API submission until backend endpoints are connected.
 function AuthForm({ mode }: AuthPageProps) {
   const t = useTranslations("Auth");
+  const router = useRouter();
+  const { showToast } = useToast();
+  const [authError, setAuthError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const isRegister = mode === "register";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const fullName = String(formData.get("fullName") ?? "");
+    const phone = String(formData.get("phone") ?? "");
 
     if (isRegister && password !== confirmPassword) {
       setPasswordMatchError(t("errors.passwordMismatch"));
       return;
     }
 
+    setAuthError("");
     setPasswordMatchError("");
+    setIsSubmitting(true);
+
+    try {
+      const auth = isRegister
+        ? await registerWithPhone({ fullName, phone, password })
+        : await loginWithPhone({ phone, password });
+
+      storeAuthSession(auth);
+      showToast({
+        message: t(isRegister ? "toast.registerSuccess" : "toast.loginSuccess"),
+        type: "success",
+      });
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : t("errors.authFailed");
+
+      setAuthError(message);
+      showToast({
+        message,
+        type: "error",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -186,17 +221,6 @@ function AuthForm({ mode }: AuthPageProps) {
         />
       ) : null}
 
-      {/* <AuthField
-        autoComplete="email"
-        icon={Mail}
-        inputMode="email"
-        label={t("fields.email")}
-        name="email"
-        placeholder={t("placeholders.email")}
-        type="email"
-      /> */}
-
-      {/* {isRegister ? ( */}
       <AuthField
         autoComplete="tel"
         icon={Phone}
@@ -206,7 +230,6 @@ function AuthForm({ mode }: AuthPageProps) {
         placeholder={t("placeholders.phone")}
         type="tel"
       />
-      {/* ) : null} */}
 
       <div>
         <div className="flex items-center justify-between gap-3">
@@ -301,6 +324,12 @@ function AuthForm({ mode }: AuthPageProps) {
         </div>
       ) : null}
 
+      {authError ? (
+        <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
+          {authError}
+        </p>
+      ) : null}
+
       {isRegister ? (
         <label className="flex items-start gap-3 text-sm leading-6 text-neutral-600">
           <input
@@ -322,9 +351,10 @@ function AuthForm({ mode }: AuthPageProps) {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-red-700 px-4 text-sm font-black text-white transition hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
       >
-        {t(`${mode}.submit`)}
+        {isSubmitting ? t("submitting") : t(`${mode}.submit`)}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </button>
 

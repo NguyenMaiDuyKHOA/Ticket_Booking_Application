@@ -4,12 +4,12 @@ using TicketBook.Domain.Entities;
 
 namespace TicketBook.Infrastructure.Persistence.Configurations;
 
-public sealed class TicketConfiguration : IEntityTypeConfiguration<Ticket>
+public sealed class TicketConfiguration : BaseEntityConfiguration<Ticket>
 {
-    public void Configure(EntityTypeBuilder<Ticket> builder)
+    public override void Configure(EntityTypeBuilder<Ticket> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Ticket");
-        builder.HasKey(ticket => ticket.Id);
 
         builder.Property(ticket => ticket.Price).HasPrecision(12, 2).IsRequired();
 

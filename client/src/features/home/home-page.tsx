@@ -14,25 +14,25 @@ import { HeroSlider } from "@/components/hero-slider";
 const ticketCategories = [
   {
     id: "cgv",
-    href: "/cgv/orbit",
+    href: "/cgv",
     icon: Film,
     className: "bg-red-50 text-red-800",
   },
   {
     id: "event",
-    href: "/event/festival",
+    href: "/event",
     icon: Ticket,
     className: "bg-teal-50 text-teal-800",
   },
   {
     id: "concert",
-    href: "/concert/arena",
+    href: "/concert",
     icon: Music2,
     className: "bg-amber-50 text-amber-800",
   },
   {
     id: "tour",
-    href: "/tour/saigon",
+    href: "/tour",
     icon: Map,
     className: "bg-neutral-100 text-neutral-800",
   },

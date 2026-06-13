@@ -1,6 +1,4 @@
 using TicketBook.Application.DTOs.Bookings;
-using TicketBook.Application.DTOs.Cinemas;
-using TicketBook.Application.DTOs.Movies;
 using TicketBook.Application.DTOs.Showtimes;
 using TicketBook.Domain.Entities;
 
@@ -8,43 +6,66 @@ namespace TicketBook.Infrastructure.Services;
 
 internal static class MappingExtensions
 {
-    public static MovieDto ToDto(this Movie movie) =>
-        new(movie.Id, movie.Type, movie.Title, movie.Description, movie.Duration, movie.Genre, movie.PosterUrl, movie.ReleaseDate, movie.AgeRating);
-
-    public static CinemaDto ToDto(this Cinema cinema) =>
-        new(cinema.Id, cinema.Name, cinema.Address, cinema.City);
-
-    public static SeatDto ToDto(this Seat seat) =>
-        new(seat.Id, seat.SeatNumber, seat.SeatType, seat.IsBooked);
+    public static SeatDto ToDto(this Seat seat, bool isBooked = false) =>
+        new(seat.Id, seat.Row, seat.Number, GetSeatLabel(seat), seat.SeatType.Name, isBooked);
 
     public static ShowtimeDto ToDto(this Showtime showtime) =>
         new(
             showtime.Id,
-            showtime.MovieId,
-            showtime.Movie.Title,
-            showtime.CinemaId,
-            showtime.Cinema.Name,
+            showtime.ItemId,
+            showtime.Item.Title,
+            showtime.Item.ItemTypeId,
+            showtime.Item.ItemType.Name,
+            showtime.Item.ItemType.Slug,
+            showtime.Hall.VenueId,
+            showtime.Hall.Venue.Name,
+            showtime.HallId,
+            showtime.Hall.Name,
+            showtime.ShowtimeStatusId,
+            showtime.ShowtimeStatus.Name,
+            showtime.ShowtimeStatus.Slug,
             showtime.StartTime,
             showtime.EndTime,
-            showtime.RoomNumber,
-            showtime.StandardSeatPrice,
-            showtime.VipSeatPrice,
-            showtime.Seats.Count(seat => !seat.IsBooked),
-            showtime.Seats.OrderBy(seat => seat.SeatNumber).Select(seat => seat.ToDto()).ToList());
+            showtime.Price,
+            GetAvailableSeats(showtime),
+            GetShowtimeSeats(showtime));
 
     public static BookingDto ToDto(this Booking booking) =>
         new(
             booking.Id,
             booking.UserId,
             booking.ShowtimeId,
-            booking.Showtime.Movie.Title,
-            booking.Showtime.Cinema.Name,
+            booking.Showtime.Item.Title,
+            booking.Showtime.Hall.Venue.Name,
             booking.Showtime.StartTime,
             booking.TotalPrice,
             booking.Status,
             booking.CreatedAt,
             booking.Tickets
-                .OrderBy(ticket => ticket.Seat.SeatNumber)
-                .Select(ticket => new TicketDto(ticket.Id, ticket.SeatId, ticket.Seat.SeatNumber, ticket.Seat.SeatType, ticket.Price))
+                .OrderBy(ticket => ticket.Seat.Row)
+                .ThenBy(ticket => ticket.Seat.Number)
+                .Select(ticket => new TicketDto(ticket.Id, ticket.SeatId, GetSeatLabel(ticket.Seat), ticket.Seat.SeatType.Name, ticket.Price))
                 .ToList());
+
+    private static string GetSeatLabel(Seat seat) => $"{seat.Row}{seat.Number}";
+
+    private static List<SeatDto> GetShowtimeSeats(Showtime showtime)
+    {
+        var bookedSeatIds = showtime.BookedSeats
+            .Where(bookedSeat => bookedSeat.Booking.Status != TicketBook.Domain.Enums.BookingStatus.Cancelled)
+            .Select(bookedSeat => bookedSeat.SeatId)
+            .ToHashSet();
+
+        return showtime.Hall?.Seats
+            .OrderBy(seat => seat.Row)
+            .ThenBy(seat => seat.Number)
+            .Select(seat => seat.ToDto(bookedSeatIds.Contains(seat.Id)))
+            .ToList() ?? new List<SeatDto>();
+    }
+
+    private static int GetAvailableSeats(Showtime showtime)
+    {
+        var seats = GetShowtimeSeats(showtime);
+        return seats.Count(seat => !seat.IsBooked);
+    }
 }

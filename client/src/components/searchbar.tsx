@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FilterDropdown, type FilterDropdownOption } from "./filter-dropdown";
 
 type SearchbarProps = {
-  variant?: "home" | "cgv" | "event" | "concert" | "tour";
+  variant?: "home" | "cgv" | "event" | "concert" | "tour" | "admin";
 };
 
 const locationOptions: FilterDropdownOption[] = [
@@ -42,9 +42,9 @@ export function Searchbar({ variant = "cgv" }: SearchbarProps) {
     const ticketTypeOptions: FilterDropdownOption[] = [
       { label: homeT("search.allCategories"), value: "all" },
       { href: "/cgv", label: homeT("categories.cgv.title"), value: "cgv" },
-      { href: "#ticket-types", label: homeT("categories.event.title"), value: "event" },
-      { href: "#ticket-types", label: homeT("categories.concert.title"), value: "concert" },
-      { href: "#ticket-types", label: homeT("categories.tour.title"), value: "tour" },
+      { href: "/event", label: homeT("categories.event.title"), value: "event" },
+      { href: "/concert", label: homeT("categories.concert.title"), value: "concert" },
+      { href: "/tour", label: homeT("categories.tour.title"), value: "tour" },
     ];
 
     return (

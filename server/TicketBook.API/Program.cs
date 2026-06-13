@@ -6,11 +6,22 @@ using TicketBook.API.Middleware;
 using TicketBook.Infrastructure.DependencyInjection;
 using TicketBook.Infrastructure.Services;
 
+LoadDotEnvFile();
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClientApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000", "http://localhost:3001")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var jwtOptions = ReadJwtOptions(builder.Configuration);
 if (string.IsNullOrWhiteSpace(jwtOptions.Secret))
@@ -83,6 +94,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("ClientApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -103,4 +116,63 @@ static JwtOptions ReadJwtOptions(IConfiguration configuration)
             ? expirationMinutes
             : 60
     };
+}
+
+static void LoadDotEnvFile()
+{
+    var envPath = FindDotEnvPath();
+    if (envPath is null)
+    {
+        return;
+    }
+
+    foreach (var rawLine in File.ReadAllLines(envPath))
+    {
+        var line = rawLine.Trim();
+        if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#'))
+        {
+            continue;
+        }
+
+        var separatorIndex = line.IndexOf('=');
+        if (separatorIndex <= 0)
+        {
+            continue;
+        }
+
+        var key = line[..separatorIndex].Trim();
+        var value = line[(separatorIndex + 1)..].Trim().Trim('"');
+
+        // Real environment variables win over local .env values in deployments and CI.
+        if (string.IsNullOrWhiteSpace(key) || Environment.GetEnvironmentVariable(key) is not null)
+        {
+            continue;
+        }
+
+        Environment.SetEnvironmentVariable(key, value);
+    }
+}
+
+static string? FindDotEnvPath()
+{
+    var currentDirectory = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+    while (currentDirectory is not null)
+    {
+        var projectEnvPath = Path.Combine(currentDirectory.FullName, "server", "TicketBook.API", ".env");
+        if (File.Exists(projectEnvPath))
+        {
+            return projectEnvPath;
+        }
+
+        var envPath = Path.Combine(currentDirectory.FullName, ".env");
+        if (File.Exists(envPath))
+        {
+            return envPath;
+        }
+
+        currentDirectory = currentDirectory.Parent;
+    }
+
+    return null;
 }

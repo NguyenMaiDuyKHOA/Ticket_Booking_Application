@@ -19,14 +19,16 @@ public sealed class ShowtimesController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<PagedResult<ShowtimeDto>>> GetShowtimes(
-        [FromQuery] Guid? movieId,
-        [FromQuery] Guid? cinemaId,
+        [FromQuery] Guid? itemTypeId,
+        [FromQuery] Guid? itemId,
+        [FromQuery] Guid? venueId,
+        [FromQuery] Guid? hallId,
         [FromQuery] DateOnly? date,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 20,
         CancellationToken cancellationToken = default)
     {
-        return Ok(await _showtimeService.GetPagedAsync(movieId, cinemaId, date, page, pageSize, cancellationToken));
+        return Ok(await _showtimeService.GetPagedAsync(itemTypeId, itemId, venueId, hallId, date, page, pageSize, cancellationToken));
     }
 
     [HttpGet("{id:guid}")]

@@ -4,18 +4,21 @@ using TicketBook.Domain.Entities;
 
 namespace TicketBook.Infrastructure.Persistence.Configurations;
 
-public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
+public sealed class PaymentConfiguration : BaseEntityConfiguration<Payment>
 {
-    public void Configure(EntityTypeBuilder<Payment> builder)
+    public override void Configure(EntityTypeBuilder<Payment> builder)
     {
-        builder.ToTable("Payment");
-        builder.HasKey(payment => payment.Id);
+        base.Configure(builder);
+        builder.ToTable("Payment", table =>
+        {
+            table.HasCheckConstraint("CK_Payment_Amount_Positive", "\"Amount\" > 0");
+        });
 
         builder.Property(payment => payment.Amount).HasPrecision(12, 2).IsRequired();
+        builder.Property(payment => payment.Currency).HasMaxLength(3).IsRequired();
         builder.Property(payment => payment.Provider).HasMaxLength(100).IsRequired();
         builder.Property(payment => payment.TransactionId).HasMaxLength(200);
         builder.Property(payment => payment.Status).HasConversion<string>().HasMaxLength(30).IsRequired();
-        builder.Property(payment => payment.CreatedAt).IsRequired();
 
         builder.HasOne(payment => payment.Booking)
             .WithOne(booking => booking.Payment)
@@ -24,5 +27,6 @@ public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
 
         builder.HasIndex(payment => payment.BookingId).IsUnique();
         builder.HasIndex(payment => payment.TransactionId);
+        builder.HasIndex(payment => new { payment.Provider, payment.TransactionId }).IsUnique();
     }
 }

@@ -25,17 +25,17 @@ internal sealed class AuthService : IAuthService
     {
         ValidateRegister(request);
 
-        var email = NormalizeEmail(request.Email);
-        var emailExists = await _dbContext.Users.AnyAsync(user => user.Email == email, cancellationToken);
-        if (emailExists)
+        var phone = NormalizePhone(request.Phone);
+        var phoneExists = await _dbContext.Users.AnyAsync(user => user.Phone == phone, cancellationToken);
+        if (phoneExists)
         {
-            throw new ConflictException("Email is already registered.");
+            throw new ConflictException("Phone number is already registered.");
         }
 
         var user = new User
         {
             FullName = request.FullName.Trim(),
-            Email = email,
+            Phone = phone,
             PasswordHash = _passwordHasher.Hash(request.Password),
             Role = UserRole.User
         };
@@ -48,12 +48,12 @@ internal sealed class AuthService : IAuthService
 
     public async Task<AuthResponse> LoginAsync(LoginRequest request, CancellationToken cancellationToken)
     {
-        var email = NormalizeEmail(request.Email);
-        var user = await _dbContext.Users.SingleOrDefaultAsync(candidate => candidate.Email == email, cancellationToken);
+        var phone = NormalizePhone(request.Phone);
+        var user = await _dbContext.Users.SingleOrDefaultAsync(candidate => candidate.Phone == phone, cancellationToken);
 
         if (user is null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
         {
-            throw new UnauthorizedException("Invalid email or password.");
+            throw new UnauthorizedException("Invalid phone number or password.");
         }
 
         return _jwtTokenService.CreateToken(user);
@@ -66,9 +66,9 @@ internal sealed class AuthService : IAuthService
             throw new ValidationException("Full name is required.");
         }
 
-        if (string.IsNullOrWhiteSpace(request.Email))
+        if (string.IsNullOrWhiteSpace(request.Phone))
         {
-            throw new ValidationException("Email is required.");
+            throw new ValidationException("Phone number is required.");
         }
 
         if (string.IsNullOrWhiteSpace(request.Password) || request.Password.Length < 8)
@@ -77,13 +77,19 @@ internal sealed class AuthService : IAuthService
         }
     }
 
-    private static string NormalizeEmail(string email)
+    private static string NormalizePhone(string phone)
     {
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(phone))
         {
-            throw new ValidationException("Email is required.");
+            throw new ValidationException("Phone number is required.");
         }
 
-        return email.Trim().ToLowerInvariant();
+        var normalizedPhone = phone.Trim().Replace(" ", string.Empty).Replace("-", string.Empty);
+        if (normalizedPhone.Length < 9 || normalizedPhone.Length > 15 || normalizedPhone.Any(character => !char.IsDigit(character) && character != '+'))
+        {
+            throw new ValidationException("Phone number is invalid.");
+        }
+
+        return normalizedPhone;
     }
 }
